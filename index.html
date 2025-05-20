@@ -897,27 +897,35 @@
      loginForm.reset();
    });
 
-   registerForm.addEventListener('submit', (e) => {
-     e.preventDefault();
-     const name = registerForm.name.value.trim();
-     const email = registerForm.email.value.trim();
-     const password = registerForm.password.value.trim();
-     const passwordConfirm = registerForm.passwordConfirm.value.trim();
-     if (!name || !email || !password || !passwordConfirm) {
-       alert('Vui lòng nhập đầy đủ thông tin.');
-       return;
-     }
-     if (password !== passwordConfirm) {
-       alert('Mật khẩu xác nhận không khớp.');
-       return;
-     }
-     alert(`Đăng ký thành công cho tài khoản: ${name} (${email})`);
-     isLoggedIn = true;
-     localStorage.setItem('isLoggedIn', 'true');
-     updateAuthButtons();
-     closeRegisterModal();
-     registerForm.reset();
-   });
+   registerForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('register-username').value;
+  const password = document.getElementById('register-password').value;
+  const role = document.getElementById('role').value;
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password, role }),
+    });
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.error || 'Đăng ký thất bại');
+
+    // Lưu token và role, sau đó điều hướng
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('role', data.role);
+    alert('Đăng ký thành công!');
+
+    // Điều hướng dựa trên role
+    if (data.role === 'admin') window.location.href = 'admin.html';
+    else if (data.role === 'freelancer') window.location.href = 'freelancer.html';
+    else if (data.role === 'khachhang') window.location.href = 'khachhang.html';
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
    document.addEventListener('keydown', (e) => {
      if (e.key === 'Escape') {
