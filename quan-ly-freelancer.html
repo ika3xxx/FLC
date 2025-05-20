@@ -1,0 +1,447 @@
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Quản lý Freelancer - FreeHub Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-indigo-50 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center relative">
+        <a class="flex items-center space-x-2" href="#">
+          <img
+            alt="Logo FreeHub, chữ FH cách điệu màu xanh dương và trắng"
+            class="h-10 w-10 rounded-md"
+            height="40"
+            src="https://storage.googleapis.com/a1aa/image/e8bb47a6-7031-4d6e-40d9-f0c336723fe4.jpg"
+            width="40"
+          />
+          <span class="text-indigo-600 font-bold text-xl select-none">
+            FreeHub Admin
+          </span>
+        </a>
+        <nav class="hidden md:flex space-x-8 font-semibold text-gray-700">
+          <a class="hover:text-indigo-600 transition" href="manage-jobs.html">
+            Quản lý Việc làm
+          </a>
+          <a aria-current="page" class="hover:text-indigo-600 transition text-indigo-600" href="manage-freelancers.html">
+            Quản lý Freelancer
+          </a>
+          <a class="hover:text-indigo-600 transition" href="manage-blogs.html">
+            Quản lý Blog
+          </a>
+          <a class="hover:text-indigo-600 transition" href="settings.html">
+            Cài đặt
+          </a>
+        </nav>
+        <div class="hidden md:flex justify-end flex-1 max-w-xs" id="auth-buttons">
+          <div class="relative w-full">
+            <button id="profile-dropdown-button" aria-haspopup="true" aria-expanded="false" class="flex items-center space-x-3 w-full justify-center focus:outline-none focus:ring-2 focus:ring-indigo-600 rounded-md hover:ring-indigo-600 transition" type="button">
+              <img
+                id="header-avatar"
+                alt="Ảnh đại diện admin"
+                src="https://storage.googleapis.com/a1aa/image/80314c24-2a8d-41aa-9e23-a77f15e64bd6.jpg"
+                class="w-10 h-10 rounded-full object-cover shadow-md"
+                width="40"
+                height="40"
+              />
+              <span class="text-indigo-600 font-semibold text-lg select-none" id="header-username">admin</span>
+              <i class="fas fa-chevron-down text-indigo-600"></i>
+            </button>
+            <div id="profile-dropdown-menu" class="hidden absolute left-0 right-0 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="profile-dropdown-button" tabindex="-1" style="top:100%; margin-top:0.5rem;">
+              <div class="px-4 py-3 border-b border-indigo-100">
+                <p class="text-sm text-gray-500">Đăng nhập với tài khoản</p>
+                <p class="text-indigo-700 font-semibold truncate" title="admin">admin</p>
+              </div>
+              <a href="html/profile.html" class="block px-4 py-3 text-indigo-700 font-semibold hover:bg-indigo-100 transition rounded-t-md flex items-center space-x-2" role="menuitem" tabindex="0">
+                <i class="fas fa-user"></i>
+                <span>Xem hồ sơ</span>
+              </a>
+              <button id="logout-button" class="w-full text-left px-4 py-3 text-red-600 font-semibold hover:bg-red-100 transition rounded-b-md flex items-center space-x-2 focus:outline-none" type="button" role="menuitem" tabindex="0">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Đăng xuất</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button aria-label="Mở menu" class="md:hidden text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-600" id="mobile-menu-button" type="button">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <nav aria-label="Menu di động" class="md:hidden bg-white border-t border-indigo-100 hidden" id="mobile-menu">
+      <a class="block px-4 py-3 text-indigo-700 font-semibold border-b border-indigo-100 hover:bg-indigo-50 flex items-center space-x-2" href="manage-jobs.html">
+        <i class="fas fa-briefcase"></i>
+        <span>Quản lý Việc làm</span>
+      </a>
+      <a aria-current="page" class="block px-4 py-3 text-indigo-700 font-semibold border-b border-indigo-100 bg-indigo-50 flex items-center space-x-2" href="manage-freelancers.html">
+        <i class="fas fa-user-friends"></i>
+        <span>Quản lý Freelancer</span>
+      </a>
+      <a class="block px-4 py-3 text-indigo-700 font-semibold border-b border-indigo-100 hover:bg-indigo-50 flex items-center space-x-2" href="manage-blogs.html">
+        <i class="fas fa-newspaper"></i>
+        <span>Quản lý Blog</span>
+      </a>
+      <a class="block px-4 py-3 text-indigo-700 font-semibold border-b border-indigo-100 hover:bg-indigo-50 flex items-center space-x-2" href="settings.html">
+        <i class="fas fa-cogs"></i>
+        <span>Cài đặt</span>
+      </a>
+      <div id="mobile-auth-buttons" class="px-4 py-3">
+        <button id="mobile-logout-button" class="w-full text-left text-indigo-700 font-semibold border border-indigo-100 hover:bg-indigo-50 flex items-center space-x-2 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600" type="button">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Đăng xuất</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section id="manage-freelancers" class="mb-16">
+      <h1 class="text-4xl font-extrabold text-indigo-700 mb-6 border-b border-indigo-300 pb-2">
+        Quản lý Freelancer
+      </h1>
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-indigo-100">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Ảnh đại diện</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Tên Freelancer</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Chuyên môn</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Số việc đã nhận</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Đánh giá</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">Trạng thái</th>
+              <th scope="col" class="relative px-6 py-3"><span class="sr-only">Chỉnh sửa</span></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Nguyễn Tuấn, freelancer chuyên React.js" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/dd40a9c5-5292-43d3-3dd0-eaccfa1929ab.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Nguyễn Tuấn</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">React.js, JavaScript, Frontend</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">15</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">4.5</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Nguyễn Tuấn" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Nguyễn Tuấn" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Lê Hương, freelancer chuyên thiết kế logo" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/6606fb04-e3d2-4e9d-00d5-b7afed9dee55.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Lê Hương</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Thiết kế, Logo, Branding</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">22</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">5.0</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Lê Hương" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Lê Hương" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Phạm Lâm, freelancer chuyên viết bài blog công nghệ" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/b365c73b-3383-4e5b-c384-6bc10d33dd21.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Phạm Lâm</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Viết lách, Blog, Công nghệ</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">30</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">3.5</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Tạm ngưng</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Phạm Lâm" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Phạm Lâm" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Thảo Hân, freelancer chuyên thiết kế UI/UX" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/c32a69d3-16a8-4b88-768b-145996bb3dcf.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Thảo Hân</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">UI/UX, Thiết kế Web</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">18</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">4.0</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Thảo Hân" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Thảo Hân" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Anh Tuấn, freelancer chuyên phát triển ứng dụng di động" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/af9e855a-1867-468b-e248-1a9c1be70e7c.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Anh Tuấn</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Mobile, Android, iOS</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">12</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">3.8</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Anh Tuấn" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Anh Tuấn" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Hồng Linh, freelancer chuyên viết bài blog công nghệ" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/3c123f68-8eb9-4f94-71fd-b3a4cd7b9616.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Hồng Linh</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Viết lách, Blog, Công nghệ</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">25</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">5.0</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Hồng Linh" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Hồng Linh" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Phương Thảo, freelancer chuyên phát triển ứng dụng di động" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/e9d70a0c-585e-4ffb-1d6a-aa5514491fea.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Phương Thảo</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Mobile, iOS, Android</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">20</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">4.5</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Phương Thảo" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Phương Thảo" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Đặng Huy, freelancer chuyên quản lý dự án IT" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/96a5b3b2-2321-4f0f-8c1e-f568250387d4.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Đặng Huy</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Project Management, IT</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">10</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">2.5</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Tạm ngưng</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Đặng Huy" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Đặng Huy" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <img alt="Ảnh đại diện Ngọc Trâm, freelancer chuyên quản lý dự án IT" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/1e5605c9-a95b-4ab6-1260-22ebebaca3e5.jpg" width="40" />
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-900">Ngọc Trâm</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">Project Management, IT</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-700">8</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500 flex items-center space-x-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                <span class="ml-2 text-indigo-700 font-semibold">3.0</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Hoạt động</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                <button aria-label="Chỉnh sửa freelancer Ngọc Trâm" class="text-indigo-600 hover:text-indigo-900 focus:outline-none"><i class="fas fa-edit"></i></button>
+                <button aria-label="Xóa freelancer Ngọc Trâm" class="text-red-600 hover:text-red-900 focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button id="add-freelancer-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" type="button">
+          <i class="fas fa-plus mr-2"></i> Thêm Freelancer mới
+        </button>
+      </div>
+    </section>
+
+    <!-- Edit Freelancer Modal -->
+    <div id="edit-freelancer-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold text-indigo-700 mb-4">Chỉnh sửa Freelancer</h2>
+        <form id="edit-freelancer-form">
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-indigo-700">Tên Freelancer</label>
+            <input type="text" id="edit-freelancer-name" class="border p-2 w-full rounded" required />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-indigo-700">Chuyên môn</label>
+            <input type="text" id="edit-freelancer-skills" class="border p-2 w-full rounded" required />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-indigo-700">Số việc đã nhận</label>
+            <input type="number" id="edit-freelancer-jobs" class="border p-2 w-full rounded" min="0" required />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-indigo-700">Đánh giá</label>
+            <input type="number" id="edit-freelancer-rating" class="border p-2 w-full rounded" min="0" max="5" step="0.1" required />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-indigo-700">Trạng thái</label>
+            <select id="edit-freelancer-status" class="border p-2 w-full rounded">
+              <option value="active">Hoạt động</option>
+              <option value="inactive">Tạm ngưng</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Lưu</button>
+            <button type="button" id="cancel-edit-freelancer-button" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const profileDropdownButton = document.getElementById("profile-dropdown-button");
+    const profileDropdownMenu = document.getElementById("profile-dropdown-menu");
+    const logoutButton = document.getElementById("logout-button");
+    const mobileLogoutButton = document.getElementById("mobile-logout-button");
+    const addFreelancerButton = document.getElementById("add-freelancer-button");
+    const editFreelancerModal = document.getElementById("edit-freelancer-modal");
+    const cancelEditFreelancerButton = document.getElementById("cancel-edit-freelancer-button");
+    const editFreelancerForm = document.getElementById("edit-freelancer-form");
+
+    mobileMenuButton.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    profileDropdownButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = profileDropdownButton.getAttribute("aria-expanded") === "true";
+      if (expanded) {
+        profileDropdownMenu.classList.add("hidden");
+        profileDropdownButton.setAttribute("aria-expanded", "false");
+      } else {
+        profileDropdownMenu.classList.remove("hidden");
+        profileDropdownButton.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    document.addEventListener("click", () => {
+      if (!profileDropdownMenu.classList.contains("hidden")) {
+        profileDropdownMenu.classList.add("hidden");
+        profileDropdownButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    profileDropdownMenu.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    function logout() {
+      if (confirm("Bạn có chắc muốn đăng xuất?")) {
+        alert("Đăng xuất thành công!");
+        window.location.href = "index.html";
+      }
+    }
+
+    logoutButton.addEventListener("click", () => {
+      profileDropdownMenu.classList.add("hidden");
+      profileDropdownButton.setAttribute("aria-expanded", "false");
+      logout();
+    });
+
+    mobileLogoutButton.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+      logout();
+    });
+
+    addFreelancerButton.addEventListener("click", () => {
+      alert("Chức năng thêm freelancer mới chưa được triển khai.");
+    });
+
+    // Delegate edit buttons click event for dynamic handling
+    document.querySelector("tbody").addEventListener("click", (e) => {
+      if (e.target.closest('button[aria-label^="Chỉnh sửa freelancer"]')) {
+        const button = e.target.closest('button[aria-label^="Chỉnh sửa freelancer"]');
+        const row = button.closest("tr");
+        const name = row.children[1].textContent;
+        const skills = row.children[2].textContent;
+        const jobs = row.children[3].textContent;
+        const ratingText = row.children[4].querySelector("span")?.textContent || "0";
+        const statusText = row.children[5].textContent.trim();
+        const status = statusText === "Hoạt động" ? "active" : "inactive";
+
+        document.getElementById("edit-freelancer-name").value = name;
+        document.getElementById("edit-freelancer-skills").value = skills;
+        document.getElementById("edit-freelancer-jobs").value = jobs;
+        document.getElementById("edit-freelancer-rating").value = ratingText;
+        document.getElementById("edit-freelancer-status").value = status;
+
+        editFreelancerModal.classList.remove("hidden");
+      }
+    });
+
+    cancelEditFreelancerButton.addEventListener("click", () => {
+      editFreelancerModal.classList.add("hidden");
+    });
+
+    editFreelancerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Freelancer đã được cập nhật!");
+      editFreelancerModal.classList.add("hidden");
+      // Thêm logic để cập nhật dữ liệu trong bảng hoặc gửi tới backend
+    });
+  </script>
+</body>
+</html>
